@@ -69,7 +69,15 @@ func (s *ClientController) Add() {
 		if err := file.GetDb().NewClient(t); err != nil {
 			s.AjaxErr(err.Error())
 		}
-		s.AjaxOk("add success")
+		
+		data := make(map[string]interface{})
+		data["msg"] = "add success"
+		data["status"] = 1
+		data["data"] = t
+		s.Data["json"] = data
+		s.ServeJSON()
+		
+		//s.AjaxOk("add success")
 	}
 }
 func (s *ClientController) GetClient() {
@@ -101,7 +109,8 @@ func (s *ClientController) Edit() {
 		s.display()
 	} else {
 		if c, err := file.GetDb().GetClient(id); err != nil {
-			s.error()
+			//s.error()
+			s.AjaxErr("client id no exist")
 		} else {
 			if s.getEscapeString("web_username") != "" {
 				if s.getEscapeString("web_username") == beego.AppConfig.String("web_username") || !file.GetDb().VerifyUserName(s.getEscapeString("web_username"), c.Id) {
@@ -120,6 +129,7 @@ func (s *ClientController) Edit() {
 				c.MaxConn = s.GetIntNoErr("max_conn")
 				c.MaxTunnelNum = s.GetIntNoErr("max_tunnel")
 			}
+			
 			c.Remark = s.getEscapeString("remark")
 			c.Cnf.U = s.getEscapeString("u")
 			c.Cnf.P = s.getEscapeString("p")
@@ -142,8 +152,15 @@ func (s *ClientController) Edit() {
 				c.Rate.Start()
 			}
 			file.GetDb().JsonDb.StoreClientsToJsonFile()
+			//更新
+			data := make(map[string]interface{})
+			data["msg"] = "modified success"
+			data["status"] = 1
+			data["data"] = c
+			s.Data["json"] = data
+		        s.ServeJSON()
 		}
-		s.AjaxOk("save success")
+		//s.AjaxOk("save success")
 	}
 }
 
