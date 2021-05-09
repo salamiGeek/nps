@@ -19,13 +19,14 @@ func GetRunPath() string {
 
 //Different systems get different installation paths
 func GetInstallPath() string {
-	var path string
-	if IsWindows() {
-		path = `C:\Program Files\nps`
-	} else {
-		path = "/etc/nps"
-	}
-	return path
+// 	var path string
+// 	if IsWindows() {
+// 		path = `C:\Program Files\nps`
+// 	} else {
+// 		path = "/etc/nps"
+// 	}
+// 	return path
+	return GetAppPath()
 }
 
 //Get the absolute path to the running directory
