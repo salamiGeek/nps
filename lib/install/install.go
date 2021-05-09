@@ -191,18 +191,18 @@ func downloadLatest(bin string) string {
 }
 
 func copyStaticFile(srcPath, bin string) string {
-	path := common.GetInstallPath()
-	if bin == "nps" {
-		//复制文件到对应目录
-		if err := CopyDir(filepath.Join(srcPath, "web", "views"), filepath.Join(path, "web", "views")); err != nil {
-			log.Fatalln(err)
-		}
-		chMod(filepath.Join(path, "web", "views"), 0766)
-		if err := CopyDir(filepath.Join(srcPath, "web", "static"), filepath.Join(path, "web", "static")); err != nil {
-			log.Fatalln(err)
-		}
-		chMod(filepath.Join(path, "web", "static"), 0766)
-	}
+// 	path := common.GetInstallPath()
+// 	if bin == "nps" {
+// 		//复制文件到对应目录
+// 		if err := CopyDir(filepath.Join(srcPath, "web", "views"), filepath.Join(path, "web", "views")); err != nil {
+// 			log.Fatalln(err)
+// 		}
+// 		chMod(filepath.Join(path, "web", "views"), 0766)
+// 		if err := CopyDir(filepath.Join(srcPath, "web", "static"), filepath.Join(path, "web", "static")); err != nil {
+// 			log.Fatalln(err)
+// 		}
+// 		chMod(filepath.Join(path, "web", "static"), 0766)
+// 	}
 	binPath, _ := filepath.Abs(os.Args[0])
 	if !common.IsWindows() {
 		if _, err := copyFile(filepath.Join(srcPath, bin), "/usr/bin/"+bin); err != nil {
@@ -239,26 +239,26 @@ func InstallNpc() {
 
 func InstallNps() string {
 	path := common.GetInstallPath()
-	if common.FileExists(path) {
-		MkidrDirAll(path, "web/static", "web/views")
-	} else {
-		MkidrDirAll(path, "conf", "web/static", "web/views")
-		// not copy config if the config file is exist
-		if err := CopyDir(filepath.Join(common.GetAppPath(), "conf"), filepath.Join(path, "conf")); err != nil {
-			log.Fatalln(err)
-		}
-		chMod(filepath.Join(path, "conf"), 0766)
-	}
+// 	if common.FileExists(path) {
+// 		MkidrDirAll(path, "web/static", "web/views")
+// 	} else {
+// 		MkidrDirAll(path, "conf", "web/static", "web/views")
+// 		// not copy config if the config file is exist
+// 		if err := CopyDir(filepath.Join(common.GetAppPath(), "conf"), filepath.Join(path, "conf")); err != nil {
+// 			log.Fatalln(err)
+// 		}
+// 		chMod(filepath.Join(path, "conf"), 0766)
+// 	}
 	binPath := copyStaticFile(common.GetAppPath(), "nps")
 	log.Println("install ok!")
-	log.Println("Static files and configuration files in the current directory will be useless")
-	log.Println("The new configuration file is located in", path, "you can edit them")
+// 	log.Println("Static files and configuration files in the current directory will be useless")
+	log.Println("The current configuration file is located in", path, "you can edit them")
 	if !common.IsWindows() {
 		log.Println(`You can start with:
 nps start|stop|restart|uninstall|update or nps-update update
 anywhere!`)
 	} else {
-		log.Println(`You can copy executable files to any directory and start working with:
+		log.Println(`You can start working with:
 nps.exe start|stop|restart|uninstall|update or nps-update.exe update
 now!`)
 	}
