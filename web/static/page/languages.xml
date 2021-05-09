@@ -186,8 +186,12 @@
 		<en-US>Access command</en-US>
 	</lang>
 	<lang id="word-commandclient">
-		<zh-CN>客户端命令</zh-CN>
+		<zh-CN>客户端运行命令</zh-CN>
 		<en-US>Command</en-US>
+	</lang>
+	<lang id="word-installcommandclient">
+		<zh-CN>注册到系统服务</zh-CN>
+		<en-US>install Command</en-US>
 	</lang>
 	<lang id="word-compress">
 		<zh-CN>压缩</zh-CN>
