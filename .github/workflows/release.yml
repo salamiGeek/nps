@@ -109,6 +109,17 @@ jobs:
           android_client.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload to CowTransfer
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+         ./transfer cow --block 2621440 -s -p 64 --no-progress *.apk  2>&1 | tee cowtransfer.log
+         echo "::warning file=Firmware-Cowtransfer.com::$(cat cowtransfer.log | grep https)"
+    
+    - name: Upload To WeTransfer
+      run: |
+        ./transfer wet -s -p 16 --no-progress *.apk 2>&1 | tee wetransfer.log 
+        echo "::warning file=Firmware-Wetransfer.com::$(cat wetransfer.log | grep https)"
 
   build_spk:
     
@@ -134,6 +145,17 @@ jobs:
           npc_syno.spk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload to CowTransfer
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+         ./transfer cow --block 2621440 -s -p 64 --no-progress *.spk  2>&1 | tee cowtransfer.log
+         echo "::warning file=Firmware-Cowtransfer.com::$(cat cowtransfer.log | grep https)"
+    
+    - name: Upload To WeTransfer
+      run: |
+        ./transfer wet -s -p 16 --no-progress *.spk 2>&1 | tee wetransfer.log 
+        echo "::warning file=Firmware-Wetransfer.com::$(cat wetransfer.log | grep https)"
 
   build_docker:
     
