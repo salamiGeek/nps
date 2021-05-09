@@ -121,10 +121,18 @@ func (s *IndexController) Add() {
 		if err := server.AddTask(t); err != nil {
 			s.AjaxErr(err.Error())
 		} else {
-			s.AjaxOk("add success")
+			//新增
+			data := make(map[string]interface{})
+			data["msg"] = "add success"
+			data["status"] = 1
+			data["data"] = t
+			s.Data["json"] = data
+			s.ServeJSON()
+// 			s.AjaxOk("add success")
 		}
 	}
 }
+
 func (s *IndexController) GetOneTunnel() {
 	id := s.GetIntNoErr("id")
 	data := make(map[string]interface{})
@@ -149,7 +157,8 @@ func (s *IndexController) Edit() {
 		s.display()
 	} else {
 		if t, err := file.GetDb().GetTask(id); err != nil {
-			s.error()
+// 			s.error()
+			s.AjaxErr("tunnel id no exist")
 		} else {
 			if client, err := file.GetDb().GetClient(s.GetIntNoErr("client_id")); err != nil {
 				s.AjaxErr("modified error,the client is not exist")
@@ -176,8 +185,16 @@ func (s *IndexController) Edit() {
 			file.GetDb().UpdateTask(t)
 			server.StopServer(t.Id)
 			server.StartTask(t.Id)
+			
+			//修改
+			data := make(map[string]interface{})
+			data["msg"] = "modified success"
+			data["status"] = 1
+			data["data"] = t
+			s.Data["json"] = data
+		        s.ServeJSON()
 		}
-		s.AjaxOk("modified success")
+// 		s.AjaxOk("modified success")
 	}
 }
 
@@ -268,7 +285,16 @@ func (s *IndexController) AddHost() {
 		if err := file.GetDb().NewHost(h); err != nil {
 			s.AjaxErr("add fail" + err.Error())
 		}
-		s.AjaxOk("add success")
+		
+		//更新
+		data := make(map[string]interface{})
+		data["msg"] = "add success"
+		data["status"] = 1
+		data["data"] = h
+		s.Data["json"] = data
+		s.ServeJSON()
+		
+// 		s.AjaxOk("add success")
 	}
 }
 
@@ -285,7 +311,8 @@ func (s *IndexController) EditHost() {
 		s.display("index/hedit")
 	} else {
 		if h, err := file.GetDb().GetHostById(id); err != nil {
-			s.error()
+// 			s.error()
+			s.AjaxErr("host id no exist")
 		} else {
 			if h.Host != s.getEscapeString("host") {
 				tmpHost := new(file.Host)
@@ -313,7 +340,16 @@ func (s *IndexController) EditHost() {
 			h.CertFilePath = s.getEscapeString("cert_file_path")
 			h.Target.LocalProxy = s.GetBoolNoErr("local_proxy")
 			file.GetDb().JsonDb.StoreHostToJsonFile()
+			
+			//更新
+			data := make(map[string]interface{})
+			data["msg"] = "modified success"
+			data["status"] = 1
+			data["data"] = h
+			s.Data["json"] = data
+		        s.ServeJSON()
 		}
-		s.AjaxOk("modified success")
+		
+// 		s.AjaxOk("modified success")
 	}
 }
