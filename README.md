@@ -59,7 +59,7 @@ nps是一款轻量级、高性能、功能强大的**内网穿透**代理服务�
 	* 对于windows，管理员身份运行cmd，进入程序目录 ```nps.exe start```
 
 - 注意
-	* 安装后windows配置文件位于 ```C:\Program Files\nps```，linux和darwin位于```/etc/nps```
+	* 安装后windows配置文件位于当前目录，linux和darwin位于```/etc/nps```目录
 	* nps支持以下命令参数：```start,stop,restart,install,uninstall```
 	* 如果发现没有启动成功，查看日志(Windows日志文件位于当前运行目录下，linux和darwin位于/var/log/nps.log)
 
@@ -90,4 +90,4 @@ nps是一款轻量级、高性能、功能强大的**内网穿透**代理服务�
 - 3.增加展开客户端时，显示安装或注册系统服务的命令。
 - 4.增加上传到奶牛快传及坚果云，每天编译一次。
 - 5.修改以服务方式安装nps和npc的服务名及显示名称。
-- 6.安装后，安装及读取当前目录的配置文件及web目录（原linux自动安装到/etc/nps下，windows自动安装到C:\Program Files\nps）。
+- 6.安装后，windows安装及读取当前目录的配置文件及web目录。
