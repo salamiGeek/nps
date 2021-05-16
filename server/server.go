@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sort"
 	"sync"
 	"time"
 
@@ -270,6 +271,8 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 			}
 		}
 	}
+	//对端口进行排序
+	sort.SliceStable(list, func(i, j int) bool { return list[i].Port < list[j].Port })
 	return list, cnt
 }
 
