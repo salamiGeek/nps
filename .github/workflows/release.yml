@@ -185,6 +185,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
+    - name: Update release test
+      uses: ColinPitrat/update-release@v1.0.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          npc_syno.spk
+          
     - name: Upload to CowTransfer
       run: |
         curl -fsSL git.io/file-transfer | sh
