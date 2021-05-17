@@ -79,8 +79,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Update release test
-      uses: ColinPitrat/update-release@v1.0.1
+    - name: Update release test //https://github.com/marketplace/actions/create-update-release-and-upload-assets    
+      uses: ColinPitrat/update-release@v1.0.1  
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: |
@@ -148,6 +148,13 @@ jobs:
           android_client.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Update release
+      uses: johnwbyrd/update-release@v1  //https://github.com/marketplace/actions/update-release
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          android_client.apk
         
     - name: Upload to CowTransfer
       run: |
@@ -186,7 +193,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Update release test
-      uses: GongT/actions-recreate-release@v1
+      uses: GongT/actions-recreate-release@v1  //https://github.com/marketplace/actions/recreate-release
       with:
         tag_name: latest
         release_name: Release at ${{ github.ref }}
