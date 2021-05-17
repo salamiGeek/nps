@@ -186,8 +186,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Update release test
-      uses: ColinPitrat/update-release@v1.0.1
+      uses: GongT/actions-recreate-release@v1
       with:
+        tag_name: latest
+        release_name: Release at ${{ github.ref }}
         token: ${{ secrets.GITHUB_TOKEN }}
         files: |
           npc_syno.spk
