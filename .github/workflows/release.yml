@@ -83,6 +83,7 @@ jobs:
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: v0.26.10
         files: |
           freebsd_386_client.tar.gz
           freebsd_386_server.tar.gz
@@ -197,8 +198,8 @@ jobs:
     - name: Create/Update release and upload assets 
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
-        tag_name: latest
-        release_name: Release at ${{ github.ref }}
+        tag_name: v0.26.10
+        release_name: Release at v0.26.10
         files: |
           npc_syno.spk
           
