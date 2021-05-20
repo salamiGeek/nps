@@ -79,9 +79,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Update release test #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
-      uses: ColinPitrat/update-release@v1.0.1  
+    - name: Create/Update release and upload assets 
+      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         files: |
           freebsd_386_client.tar.gz
           freebsd_386_server.tar.gz
@@ -116,8 +117,6 @@ jobs:
           windows_amd64_client.tar.gz
           windows_amd64_server.tar.gz
           npc_sdk.tar.gz
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Upload to CowTransfer
       run: |
@@ -150,13 +149,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-    - name: Update release
-      uses: johnwbyrd/update-release@v1  #https://github.com/marketplace/actions/update-release
+    - name: Create/Update release and upload assets 
+      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: v0.26.10
+        release_name: Release at ${{ github.ref }}
         files: |
           android_client.apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Upload to CowTransfer
       run: |
@@ -194,15 +194,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Update release test
-      uses: GongT/actions-recreate-release@v1  #https://github.com/marketplace/actions/recreate-release
+    - name: Create/Update release and upload assets 
+      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         tag_name: latest
         release_name: Release at ${{ github.ref }}
         files: |
           npc_syno.spk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Upload to CowTransfer
       run: |
