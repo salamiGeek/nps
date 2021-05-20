@@ -83,7 +83,7 @@ jobs:
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: v0.26.10
+        tag: v0.26.10
         files: |
           freebsd_386_client.tar.gz
           freebsd_386_server.tar.gz
@@ -154,8 +154,8 @@ jobs:
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: master
-        release_name: Release at ${{ github.ref }}
+        tag: master
+        release: Release at ${{ github.ref }}
         files: |
           android_client.apk
         
@@ -199,8 +199,8 @@ jobs:
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: master
-        release_name: Release at ${{ github.ref }}
+        tag: v0.26.10
+        release: Release at ${{ github.ref }}
         files: |
           npc_syno.spk
           
