@@ -199,7 +199,7 @@ jobs:
       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       with:
         tag_name: v0.26.10
-        release_name: Release at v0.26.10
+        release_name: Release at ${{ github.ref }}
         files: |
           npc_syno.spk
           
