@@ -155,7 +155,6 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: master
-        release: Release at ${{ github.ref }}
         files: |
           android_client.apk
         
@@ -200,7 +199,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: v0.26.10
-        release: Release at ${{ github.ref }}
+        release: ${{ github.ref }}
         files: |
           npc_syno.spk
           
