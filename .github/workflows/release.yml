@@ -82,7 +82,6 @@ jobs:
     - name: Update release test #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
       uses: ColinPitrat/update-release@v1.0.1  
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         files: |
           freebsd_386_client.tar.gz
           freebsd_386_server.tar.gz
@@ -117,6 +116,8 @@ jobs:
           windows_amd64_client.tar.gz
           windows_amd64_server.tar.gz
           npc_sdk.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Upload to CowTransfer
       run: |
@@ -152,9 +153,10 @@ jobs:
     - name: Update release
       uses: johnwbyrd/update-release@v1  #https://github.com/marketplace/actions/update-release
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         files: |
           android_client.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Upload to CowTransfer
       run: |
@@ -197,9 +199,10 @@ jobs:
       with:
         tag_name: latest
         release_name: Release at ${{ github.ref }}
-        token: ${{ secrets.GITHUB_TOKEN }}
         files: |
           npc_syno.spk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Upload to CowTransfer
       run: |
