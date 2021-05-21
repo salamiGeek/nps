@@ -7,11 +7,11 @@ on:
   push:
     branches:
       - master
-#     paths:   //#paths 修改扩展名go或yml、web/views目录文件时，将触发. 编译参数见https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions
-#       - '**.go'
-#       - '**.yml'
-#       - 'web/views/**'
-#   schedule:
+    paths:   #paths 修改扩展名go或yml、web/views目录文件时，将触发. 编译参数见https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions
+      - '**.go'
+      - '**.yml'
+      - 'web/views/**'
+#   schedule:   #打开计划时，修改以上类型的文件时，不会触发actions
 #     - cron: 0 8 * * *    
 
 jobs:
@@ -78,46 +78,7 @@ jobs:
           npc_sdk.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Create/Update release and upload assets 
-      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: |
-          freebsd_386_client.tar.gz
-          freebsd_386_server.tar.gz
-          freebsd_amd64_client.tar.gz
-          freebsd_amd64_server.tar.gz
-          freebsd_arm_client.tar.gz
-          freebsd_arm_server.tar.gz
-          linux_386_client.tar.gz
-          linux_386_server.tar.gz
-          linux_amd64_client.tar.gz
-          linux_amd64_server.tar.gz
-          linux_arm64_client.tar.gz
-          linux_arm64_server.tar.gz
-          linux_arm_v5_client.tar.gz
-          linux_arm_v6_client.tar.gz
-          linux_arm_v7_client.tar.gz
-          linux_arm_v5_server.tar.gz
-          linux_arm_v6_server.tar.gz
-          linux_arm_v7_server.tar.gz
-          linux_mips64le_client.tar.gz
-          linux_mips64le_server.tar.gz
-          linux_mips64_client.tar.gz
-          linux_mips64_server.tar.gz
-          linux_mipsle_client.tar.gz
-          linux_mipsle_server.tar.gz
-          linux_mips_client.tar.gz
-          linux_mips_server.tar.gz
-          darwin_amd64_client.tar.gz
-          darwin_amd64_server.tar.gz
-          windows_386_client.tar.gz
-          windows_386_server.tar.gz
-          windows_amd64_client.tar.gz
-          windows_amd64_server.tar.gz
-          npc_sdk.tar.gz
-    
+
     - name: Upload to CowTransfer
       run: |
         curl -fsSL git.io/file-transfer | sh
@@ -149,13 +110,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-    - name: Create/Update release and upload assets 
-      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: |
-          android_client.apk
-        
     - name: Upload to CowTransfer
       run: |
         curl -fsSL git.io/file-transfer | sh
@@ -192,12 +146,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Create/Update release and upload assets 
-      uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: |
-          npc_syno.spk
+#     - name: Create/Update release and upload assets 
+#       uses: ColinPitrat/update-release@v1.0.1 #https://github.com/marketplace/actions/create-update-release-and-upload-assets    
+#       with:
+#         token: ${{ secrets.GITHUB_TOKEN }}
+#         files: |
+#           npc_syno.spk
           
     - name: Upload to CowTransfer
       run: |
@@ -210,48 +164,48 @@ jobs:
         ./transfer wet -s -p 16 --no-progress *.spk 2>&1 | tee wetransfer.log 
         echo "::warning file=Firmware-Wetransfer.com::$(cat wetransfer.log | grep https)"
 
-#   build_docker:
+  build_docker:
     
-#     runs-on: ubuntu-latest
-#     steps:
+    runs-on: ubuntu-latest
+    steps:
 
-#     - name: Check out code into the Go module directory
-#       uses: actions/checkout@v2
-#     - name: Set env
-#       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-#     - name: Set up QEMU
-#       uses: docker/setup-qemu-action@v1
-#     - name: Set up Docker Buildx
-#       uses: docker/setup-buildx-action@v1
-#     - name: Cache Docker layers
-#       uses: actions/cache@v2
-#       with:
-#         path: /tmp/.buildx-cache
-#         key: ${{ runner.os }}-buildx-${{ github.sha }}
-#         restore-keys: |
-#           ${{ runner.os }}-buildx-
-#     - name: Login to DockerHub
-#       uses: docker/login-action@v1 
-#       with:
-#         username: ${{ secrets.DOCKERHUB_USERNAME }}
-#         password: ${{ secrets.DOCKERHUB_TOKEN }}
-#     - name: Build and push nps
-#       uses: docker/build-push-action@v2
-#       with:
-#         context: .
-#         file: ./Dockerfile.nps
-#         platforms: linux/amd64,linux/arm,linux/arm64
-#         push: true
-#         tags: |
-#           ${{ secrets.DOCKERHUB_USERNAME }}/nps:latest
-#           ${{ secrets.DOCKERHUB_USERNAME }}/nps:${{ env.RELEASE_VERSION }}
-#     - name: Build and push npc
-#       uses: docker/build-push-action@v2
-#       with:
-#         context: .
-#         file: ./Dockerfile.npc
-#         platforms: linux/amd64,linux/arm,linux/arm64
-#         push: true
-#         tags: |
-#           ${{ secrets.DOCKERHUB_USERNAME }}/npc:latest
-#           ${{ secrets.DOCKERHUB_USERNAME }}/npc:${{ env.RELEASE_VERSION }}
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push nps
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile.nps
+        platforms: linux/amd64,linux/arm,linux/arm64
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/nps:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/nps:${{ env.RELEASE_VERSION }}
+    - name: Build and push npc
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile.npc
+        platforms: linux/amd64,linux/arm,linux/arm64
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/npc:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/npc:${{ env.RELEASE_VERSION }}
