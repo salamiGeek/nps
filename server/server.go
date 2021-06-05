@@ -252,22 +252,7 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 			if (typeVal != "" && v.Mode != typeVal || (clientId != 0 && v.Client.Id != clientId)) || (typeVal == "" && clientId != v.Client.Id) {
 				continue
 			}
-// 			if _, ok := Bridge.Client.Load(v.Client.Id); ok {
-// 				v.Client.IsConnect = true
-// 			} else {
-// 				v.Client.IsConnect = false
-// 			}
-			if start--; start < 0 {
-				if length--; length >= 0 {
-					//if _, ok := RunList[v.Id]; ok {
-// 					if _, ok := RunList.Load(v.Id); ok {
-// 						v.RunStatus = true
-// 					} else {
-// 						v.RunStatus = false
-// 					}
-					all_list = append(all_list, v)
-				}
-			}
+			all_list = append(all_list, v)
 		}
 	}
 	//sory by port
