@@ -253,6 +253,7 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 				continue
 			}
 			all_list = append(all_list, v)
+			logs.Info("all tunnel id is %d", v.Client.Id)
 		}
 	}
 	//sory by port
@@ -262,6 +263,7 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 	for _, key := range all_list {
 		if value, ok := file.GetDb().JsonDb.Tasks.Load(key); ok {
 			v := value.(*file.Tunnel)
+			logs.Info("search tunnel id is %d", v.Client.Id)
 			if (typeVal != "" && v.Mode != typeVal || (clientId != 0 && v.Client.Id != clientId)) || (typeVal == "" && clientId != v.Client.Id) {
 				continue
 			}
