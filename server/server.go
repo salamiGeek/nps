@@ -240,11 +240,11 @@ func DelTask(id int) error {
 
 //get task list by page num
 func GetTunnel(start, length int, typeVal string, clientId int, search string) ([]*file.Tunnel, int) {
-	all_list := make([]*file.Tunnel, 0) //store all Tunnel
+	all_list := make([]*file.Tunnel,0) //store all Tunnel
 	list := make([]*file.Tunnel, 0)
 	var cnt int
 	keys := file.GetMapKeys(file.GetDb().JsonDb.Tasks, false, "", "")
-	
+
 	//get all Tunnel and sort
 	for _, key := range keys {
 		if value, ok := file.GetDb().JsonDb.Tasks.Load(key); ok {
@@ -252,18 +252,16 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 			if (typeVal != "" && v.Mode != typeVal || (clientId != 0 && v.Client.Id != clientId)) || (typeVal == "" && clientId != v.Client.Id) {
 				continue
 			}
-			all_list = append(all_list, v)
-			logs.Info("all tunnel id is %d", v.Client.Id)
+			all_list = append(all_list,v)
 		}
 	}
 	//sory by port
 	sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Port < all_list[j].Port })
-	
+
 	//search
 	for _, key := range all_list {
-		if value, ok := file.GetDb().JsonDb.Tasks.Load(key); ok {
+		if value, ok := file.GetDb().JsonDb.Tasks.Load(key.Id); ok {
 			v := value.(*file.Tunnel)
-			logs.Info("search tunnel id is %d", v.Client.Id)
 			if (typeVal != "" && v.Mode != typeVal || (clientId != 0 && v.Client.Id != clientId)) || (typeVal == "" && clientId != v.Client.Id) {
 				continue
 			}
@@ -278,7 +276,6 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 			}
 			if start--; start < 0 {
 				if length--; length >= 0 {
-					//if _, ok := RunList[v.Id]; ok {
 					if _, ok := RunList.Load(v.Id); ok {
 						v.RunStatus = true
 					} else {
