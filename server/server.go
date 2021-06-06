@@ -239,7 +239,7 @@ func DelTask(id int) error {
 }
 
 //get task list by page num
-func GetTunnel(start, length int, typeVal string, clientId int, search string) ([]*file.Tunnel, int) {
+func GetTunnel(start, length int, typeVal string, clientId int, search string, sortField string, order string) ([]*file.Tunnel, int) {
 	all_list := make([]*file.Tunnel,0) //store all Tunnel
 	list := make([]*file.Tunnel, 0)
 	var cnt int
@@ -255,8 +255,32 @@ func GetTunnel(start, length int, typeVal string, clientId int, search string) (
 			all_list = append(all_list,v)
 		}
 	}
-	//sory by port
-	sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Port < all_list[j].Port })
+	//sort by Id, Remark, TargetStr, Port, asc or desc
+	if sortField=="Id" {
+		if order=="asc"{
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Id < all_list[j].Id })
+	    } else {
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Id > all_list[j].Id })
+	    }
+	} else if sortField=="Remark" {
+		if order=="asc"{
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Remark < all_list[j].Remark })
+		} else {
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Remark > all_list[j].Remark })
+		}
+	} else if sortField=="TargetStr" {
+		if order=="asc"{
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Target.TargetStr < all_list[j].Target.TargetStr })
+		} else {
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Target.TargetStr > all_list[j].Target.TargetStr })
+		}
+	}  else {
+		if order=="asc"{
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Port < all_list[j].Port })
+		} else {
+			sort.SliceStable(all_list, func(i, j int) bool { return all_list[i].Port > all_list[j].Port })
+		}
+	}
 
 	//search
 	for _, key := range all_list {
