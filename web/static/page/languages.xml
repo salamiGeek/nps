@@ -88,6 +88,10 @@
 		<zh-CN>TCP 隧道列表</zh-CN>
 		<en-US>TCP list</en-US>
 	</lang>
+	<lang id="tcp-remark">
+		<zh-CN>(TCP端口备注)</zh-CN>
+		<en-US>(TCP Port remark)</en-US>
+	</lang>
 	<lang id="page-listudp">
 		<zh-CN>UDP 隧道列表</zh-CN>
 		<en-US>UDP list</en-US>
