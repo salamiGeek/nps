@@ -96,19 +96,20 @@
         columns: [
             {
                 field: 'Id',//域值
-                title: '<span langtag="word-id"></span>',//标题
-                halign: 'center',
-                visible: true,//false表示不显示
-                sortable: true//启用排序
-            },
-            {
-                field: 'Id',//域值
                 title: '<span langtag="word-clientid"></span>',//标题
                 halign: 'center',
                 visible: true,//false表示不显示
                 formatter: function (value, row, index) {
                     return row.Client.Id
                 }
+            },
+            {
+                field: 'Id',//域值
+                title: '<span langtag="word-id"></span>',//标题
+                halign: 'center',
+                visible: true,//false表示不显示
+                sortable: true,//启用排序
+      
             },
             {
                 field: 'Remark',//域值
